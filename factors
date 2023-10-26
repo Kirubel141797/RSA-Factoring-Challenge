@@ -1,26 +1,32 @@
-#!/usr/bin/env python3
+#!/usr/bin/python3
+# library to get arguments
+import sys
 
-# Rest of the code...
 
-def factorize(n):
-    for i in range(2, int(n**0.5) + 1):
-        if n % i == 0:
-            return i, n // i
-    return None
+# fn unpack number factorial
+def fc():
+    """
+    function fc to search file to convert number and format n=p*q
+    """
+    try:
+        revfile = sys.argv[1]
+        with open(revfile) as f:
+            for revnumber in f:
+                revnumber = int(revnumber)
+                if revnumber % 2 == 0:
+                        print("{}={}*{}".format(revnumber, revnumber // 2, 2))
+                        continue
+                i = 3
+                while i < revnumber // 2:
+                    if revnumber % i == 0:
+                        print("{}={}*{}".format(revnumber, revnumber // i, i))
+                        break
+                    i = i + 2
+                if i == (revnumber // 2) + 1:
+                    print("{}={}*{}".format(revnumber, revnumber, 1))
+    except (IndexError):
+        pass
 
-def main():
-    import sys
 
-    if len(sys.argv) != 2:
-        print("Usage: ./factors <file>")
-        sys.exit(1)
-
-    with open(sys.argv[1], 'r') as file:
-        numbers = [int(line.strip()) for line in file]
-
-    for num in numbers:
-        p, q = factorize(num)
-        print(f"{num}={p}*{q}")
-
-if __name__ == "__main__":
-    main()
+# autostart
+fc()
